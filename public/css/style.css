@@ -1,0 +1,100 @@
+/* 全体のフォントと余白調整 */
+body {
+    font-family: "Helvetica Neue", sans-serif;
+    background-color: #ffffff;
+  }
+  
+  .container {
+    width: 700px;
+    margin: 40px auto;
+    padding: 0 30px;
+    background-color: #fff;
+  }
+
+/* 商品フォームの囲み用ボックス */
+.product-form-box {
+  padding: 30px;
+  border: 1px solid #000;
+}  
+  
+  /* タイトル調整 */
+  h1 {
+    font-size: 20px;
+    margin-bottom:20px;
+  }
+  
+  /* フォーム項目の整列 */
+  .mb-3 {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+  
+  /* ラベル整形 */
+  .mb-3 label {
+    width: 120px;
+    font-weight: bold;
+    margin-right: 10px;
+    position: relative;
+  }
+  
+/* 必須マーク（*）を表示する */
+label[for="product_name"]::after,
+label[for="company_id"]::after,
+label[for="price"]::after,
+label[for="stock"]::after {
+  content: '*';
+  color: red;
+  margin-left: 4px;
+}
+  
+
+  /* 入力系要素の共通スタイル */
+  .mb-3 input[type="text"],
+  .mb-3 select,
+  .mb-3 textarea,
+  .mb-3 input[type="file"] {
+    flex: 1;
+    padding: 6px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  /* テキストエリア */
+  textarea {
+    resize: vertical;
+    height: 60px;
+  }
+  
+  /* ボタンのスタイル */
+  
+  .btn-primary {
+    background-color: orange;
+    color: black;
+    margin-top: 20px;
+    margin-right: 10px;
+    padding:8px 12px;
+    border-radius:5px;
+    border: none;
+    font-size: 14px;
+    display: inline-block;
+  }
+  
+  .btn-secondary {
+    background-color: #007bff;
+    margin-top: 20px;
+    margin-right: 10px;
+    padding:8px 12px;
+    border-radius:5px;
+    border: none;
+    font-size: 14px;
+    display: inline-block;
+  }
+
+  .btn-kensaku {
+    background-color: white;
+    color: black;
+  }
+  
+

@@ -1,0 +1,202 @@
+body {
+    font-family: "Helvetica Neue", sans-serif;
+    background-color: #ffffff;
+    margin:0;
+}
+
+.container {
+    width: 900px;
+    margin: 40px auto;
+    padding: 0 30px;
+    background-color: #fff;
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* 検索バーのスタイル*/
+
+.search-bar form {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 20px;
+}
+
+.search-bar input[type="text"],
+.search-bar select[name="company_id"]{
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 8px 12px;
+    flex-grow: 1;
+}
+
+.search-bar button[class="btn-kensaku"] {
+    background-color: #f2f2f2;
+    padding: 3px 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+/* 画像の調整*/
+
+.product-table img {
+    max-height: 80px;
+    width: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+
+/*新規登録ボタンのスタイル */
+
+.new-registration-button {
+    display: flex;
+    background-color: orange;
+    color: black;
+    border: 1px solid #ccc;
+    padding: 8px 15px;
+    border-radius: 4px;
+    margin-top: 15px;
+    float: right;
+}
+
+/* 商品一覧テーブルのスタイル*/
+
+.product-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.product-table th,
+.product-table td {
+    padding: 10px;
+    text-align: center;
+    vertical-align: middle; /* テーブルのセルの縦位置を真ん中に */
+}
+
+.product-table th {
+    font-size: 15px;
+    margin-top: 5px;
+    background-color: #fff;
+    border-bottom: 1px solid #ccc;
+}
+
+.product-table td {
+    border-bottom: 1px solid #ccc;
+    vertical-align: middle;
+    height: 100px; /* ←高さを一定に */
+    padding: 10px;}
+
+.product-table tr:last-child td {
+    border-bottom: none; /* 最後行の下線をなくす */
+}
+
+.product-table tbody tr:nth-child(odd) {
+    background-color: #f9f9f9; /* 奇数番目の行をうすいグレー */
+}
+
+.product-table tbody tr:nth-child(even) {
+    background-color: #ffffff; /* 偶数番目の行を白 */
+}
+
+/* 詳細・削除ボタンのスタイル*/
+
+.actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    align-items: center;
+}
+
+.btn-detail {
+    padding: 5px 10px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 14px;
+    margin-top: 0;
+    margin-bottom: 0;}
+
+.btn-delete {
+    padding: 5px 10px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 14px;
+    display: inline-block;
+    margin-top: 0;
+    margin-bottom: 0;    
+}
+
+.delete-form {
+    display: inline-block; /* フォームも横並びにするため */
+    margin: 0; /* フォームの余白をなくす */
+    padding: 0;
+}
+
+/* ページネーションのスタイル */
+.pagination {
+    display: flex; /* 横に並べる */
+    justify-content: center; /* 真ん中に寄せる */
+    margin-top: 20px;
+    list-style: none; /* 点をなくす */
+    padding: 0; /* 余白をなくす */
+}
+
+.pagination li {
+    margin: 0 5px; /* 数字の間の隙間 */
+}
+
+.pagination li a,
+.pagination li span {
+    display: block;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    text-decoration: none;
+    color: #333;
+}
+
+.pagination li.active span {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+.pagination li.disabled span {
+    color: #ccc;
+    cursor: not-allowed;
+}
+
+.pagination li a:hover:not(.active) {
+    background-color: #f2f2f2;
+}
+
+/* ページネーションの矢印と数字のスタイル */
+.pagination .relative.inline-flex {
+    margin: 0 5px; /* 数字と矢印の間の隙間 */
+}
+
+.pagination .relative.inline-flex span {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: #333;
+}
+
+.pagination .relative.inline-flex a {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: #333;
+    text-decoration: none;
+}
+
+.pagination .relative.inline-flex[aria-current="page"] span {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}

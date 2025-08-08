@@ -1,0 +1,69 @@
+/* 入力欄が不正なときの見た目 */
+.is-invalid {
+    border-color: #e74c3c;   /* 赤い枠線 */
+    background-color: #fdecea; /* うすい赤背景（お好みで） */
+}
+
+
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 100px;
+}
+
+.login-box {
+    width: 400px;
+    text-align: center;
+}
+
+.login-title {
+    font-size: 24px;
+    margin-bottom: 30px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.login-input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.button-group {
+    display: flex;
+    justify-content: space-around;
+
+}
+
+.btn-register {
+    background-color: orange;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 20px;
+    outline: none;
+}
+
+.btn-login {
+    background-color: #7ee0f4;
+    color: black;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    text-decoration: none;
+    outline: none;
+}
+
+.error-text {
+    color: red;
+    font-size: 0.9rem;
+    display: block;
+    margin-top: 5px;
+}
