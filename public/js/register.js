@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const form = document.querySelector("form");
     const submitButton = document.querySelector(".btn-register");
 
-    submitButton.addEventListener("click", function (event) {
+    submitButton.addEventListener("submit", function (event) {
         const name = document.getElementById("name").value.trim();
         const email = document.getElementById("email").value.trim();
         const password = document.getElementById("password").value.trim();

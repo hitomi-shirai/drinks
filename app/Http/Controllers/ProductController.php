@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use App\Models\Product;
 use App\Models\Company;
 use Illuminate\Http\Request;
@@ -57,21 +58,23 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-    $request -> validate ([
-        'product_name' => 'required',
-        'company_id' => 'required',
-        'price' => 'required',
-        'stock' => 'required',
-        'comment' => 'nullable',
-        'img_path' => 'nullable|image|max:2048',
+        $request -> validate ([
+            'product_name' => 'required',
+            'company_id' => 'required',
+            'price' => 'required',
+            'stock' => 'required',
+            'comment' => 'nullable',
+            'img_path' => 'nullable|image|max:2048',
     ]);
 
     $request->merge([
         'stock' => mb_convert_kana($request->stock, 'n'), // 全角→半角に変換
         'price' => mb_convert_kana($request->price, 'n'),
-    ]);    
-
-    $product = new Product();
+    ]);  
+    
+    DB::beginTransaction();
+    try {
+        $product = new Product();
         $product->product_name = $request->product_name;
         $product->company_id = $request->company_id;
         $product->price = $request->price;
@@ -79,14 +82,21 @@ class ProductController extends Controller
         $product->comment = $request->comment;
         
 
-    if($request -> hasFile('img_path')){ 
-        $file = $request->file('img_path');
-        $path = $file->store('products', 'public'); // storage/app/public/products に保存される
-        $product->img_path = 'storage/' . $path; 
+        if($request -> hasFile('img_path')){ 
+            $file = $request->file('img_path');
+            $path = $file->store('products', 'public'); // storage/app/public/products に保存される
+            $product->img_path = 'storage/' . $path; 
+        }
+
+        $product -> save();
+
+        DB::commit();
+        return redirect()->route('products.create')->with('success', '商品を登録しました');
+    }catch (\Exception $e) {
+        DB::rollBack();
+        return back()->with('error', '商品登録に失敗しました: ' . $e->getMessage());
     }
 
-    $product -> save();
-        return redirect() -> route('products.create');
     }
 
     /**
@@ -124,7 +134,7 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-        {
+    {
         $product = Product::find($id); // IDから商品を探す  
 
         $request -> validate ([
@@ -141,23 +151,32 @@ class ProductController extends Controller
             'price' => mb_convert_kana($request->price, 'n'),
         ]);    
     
+    DB::beginTransaction();
+    try {
+            $product = Product::findOrFail($id);  
 
-        //入力された値で上書きをする
-        $product -> product_name = $request -> input('product_name');
-        $product -> company_id = $request -> input('company_id');
-        $product -> price = $request -> input('price');
-        $product -> stock = $request -> input('stock');
-        $product -> comment = $request -> input('comment');
+            //入力された値で上書きをする
+            $product -> product_name = $request -> input('product_name');
+            $product -> company_id = $request -> input('company_id');
+            $product -> price = $request -> input('price');
+            $product -> stock = $request -> input('stock');
+            $product -> comment = $request -> input('comment');
 
-        if($request -> hasFile('img_path')){ 
-            $filename = $request -> img_path -> getClientOriginalName();
-            $filePath = $request -> img_path -> storeAs('products', $filename, 'public');
-            $product -> img_path = 'storage/' . $filePath;
-        }
-    
-        $product -> save();
-            return redirect() -> route('products.edit', $product -> id);
-        }
+            if($request -> hasFile('img_path')){ 
+                $filename = $request -> img_path -> getClientOriginalName();
+                $filePath = $request -> img_path -> storeAs('products', $filename, 'public');
+                $product -> img_path = 'storage/' . $filePath;
+            }
+        
+            $product -> save();
+
+            DB::commit();
+            return redirect() -> route('products.edit', $product -> id)->with('success', '商品を更新しました');
+    }catch (\Exception $e) {
+        DB::rollBack();
+        return back()->with('error', '商品更新に失敗しました: ' . $e->getMessage());
+    } 
+    }
     
 
     /**
@@ -168,8 +187,15 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
+    DB::beginTransaction();
+    try{
         $product -> delete();
-
+        DB::commit();
+        return redirect()->route('products.index')->with('success', '商品を削除しました');        
+    }catch (\Exception $e) {
+        DB::rollBack();
+        return back()->with('error', '商品削除に失敗しました: ' . $e->getMessage());
+    }
         return redirect() -> route('products.index');
     }
 }

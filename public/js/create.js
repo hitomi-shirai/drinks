@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const form = document.querySelector('form');
     const submitButton = document.querySelector('button[type="submit"]');
 
-    submitButton.addEventListener('click', function (event) {
+    submitButton.addEventListener('submit', function (event) {
         // 入力チェック
         const productName = document.getElementById('product_name').value.trim();
         const companyId = document.getElementById('company_id').value;

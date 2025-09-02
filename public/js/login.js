@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const form = document.querySelector('form');
     const loginButton = document.querySelector('.btn-login');
 
-    loginButton.addEventListener('click', function (e) {
+    loginButton.addEventListener('submit', function (e) {
         // 入力チェック
         const email = document.getElementById('email').value.trim();
         const password = document.getElementById('password').value.trim();
