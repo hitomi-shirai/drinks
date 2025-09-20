@@ -21,6 +21,15 @@
             </option>
             @endforeach
         </select>
+
+        <!-- 価格範囲 -->
+        <input type="number" id="price-min" name="price_min" placeholder="価格(下限)">
+        <input type="number" id="price-max" name="price_max" placeholder="価格(上限)">
+
+        <!-- 在庫範囲 -->
+        <input type="number" id="stock-min" name="stock_min" placeholder="在庫(下限)">
+        <input type="number" id="stock-max" name="stock_max" placeholder="在庫(上限)">
+
         <button  type="submit" class="btn-kensaku">検索</button>
         </form>
      </div>

@@ -15,7 +15,11 @@ $(function () {
             type: 'GET',
             data: {
                 search: $('#search-input').val(),
-                company_id: $('#company-select').val()
+                company_id: $('#company-select').val(),
+                price_min: $('#price-min').val(),
+                price_max: $('#price-max').val(),
+                stock_min: $('#stock-min').val(),
+                stock_max: $('#stock-max').val()
             },
             dataType: 'json'
         })

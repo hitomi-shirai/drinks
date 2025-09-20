@@ -34,10 +34,26 @@ h1 {
     flex-grow: 1;
 }
 
+.search-bar input[name="price_min"],
+.search-bar input[name="price_max"],
+.search-bar input[name="stock_min"],
+.search-bar input[name="stock_max"]{
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 2px 0.3px;
+    width: 6em;
+    max-width: 100%;
+    flex-grow: 1;
+}
+
+
 .search-bar button[class="btn-kensaku"] {
     background-color: #f2f2f2;
-    padding: 3px 10px;
+    padding: 3px 15px;
     border-radius: 4px;
+    width: 7em;
+    max-width: 100%;
     border: 1px solid #ccc;
 }
 
@@ -48,6 +64,7 @@ h1 {
     width: auto;
     display: block;
     margin: 0 auto;
+     
 }
 
 

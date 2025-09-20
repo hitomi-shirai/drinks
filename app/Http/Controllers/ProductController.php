@@ -212,6 +212,22 @@ class ProductController extends Controller
         if ($request->filled('company_id')) {
             $query->where('company_id', $request->company_id);
         }
+
+        // 価格範囲
+        if ($request->filled('price_min')) {
+            $query->where('price', '>=', $request->price_min);
+        }
+        if ($request->filled('price_max')) {
+            $query->where('price', '<=', $request->price_max);
+        }
+
+        // 在庫範囲
+        if ($request->filled('stock_min')) {
+            $query->where('stock', '>=', $request->stock_min);
+        }
+        if ($request->filled('stock_max')) {
+            $query->where('stock', '<=', $request->stock_max);
+        }        
     
         // 会社情報も一緒に取得
         $products = $query->get();
