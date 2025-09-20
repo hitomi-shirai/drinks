@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @vite('resources/js/delete.js')
+@vite('resources/js/search.js')
 @section('content')
 
 <link rel="stylesheet" href="{{ asset('css/index.css') }}">
@@ -9,11 +10,11 @@
 
     <!-- 検索バー -->
      <div class="search-bar mb-3">
-        <form method = "get">   
+        <form id = "search-form" method = "get">   
             @csrf
-        <input type = "text" name = "search" placeholder = "検索キーワード" value="{{ request('search')}}">
-        <select name = "company_id" id = "company_id">
-             <option value = "" disabled selected>メーカー名</option>
+        <input type = "text" name = "search" id = "search-input" placeholder = "検索キーワード" value="{{ request('search')}}">
+        <select name = "company_id" id = "company-select">
+             <option value = "">すべてのメーカー</option>
             @foreach($companies as $company)
             <option value ="{{$company->id }}" {{ request('company_id') == $company->id ? 'selected' : '' }}>
                 {{ $company->company_name }}
@@ -39,7 +40,8 @@
             </tr>
         </thead>
 
-        <tbody>
+        <!-- 非同期で書き換える場所  --->
+        <tbody id = "product-list">
         @foreach ($products as $product)
             <tr>
                 <td>{{ $product -> id }}</td>
@@ -67,5 +69,8 @@
         {{ $products->links('vendor.pagination.default') }}
     </div>
 </div>
+
+    <!-- jQueryの読み込み -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
 @endsection

@@ -198,4 +198,25 @@ class ProductController extends Controller
     }
         return redirect() -> route('products.index');
     }
+
+    public function searchAjax(Request $request)
+    {
+        $query = Product::with('company');
+    
+        // 商品名検索
+        if ($request->filled('search')) {
+            $query->where('product_name', 'like', '%' . $request->search . '%');
+        }
+    
+        // メーカー検索
+        if ($request->filled('company_id')) {
+            $query->where('company_id', $request->company_id);
+        }
+    
+        // 会社情報も一緒に取得
+        $products = $query->get();
+    
+        // JSONで返す
+        return response()->json($products);
+    }        
 }

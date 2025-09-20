@@ -32,6 +32,9 @@ Route::get('/index', [ProductController::class, 'index'])->name('products.index'
 //下記、検索画面
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 
+// 非同期検索用ルート
+Route::get('/products/search', [ProductController::class, 'searchAjax'])->name('products.searchAjax');
+
 //下記、商品の削除
 Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
 
