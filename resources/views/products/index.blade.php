@@ -1,6 +1,4 @@
 @extends('layouts.app')
-@vite('resources/js/delete.js')
-@vite('resources/js/search.js')
 @section('content')
 
 <link rel="stylesheet" href="{{ asset('css/index.css') }}">
@@ -37,13 +35,14 @@
     <table class="product-table">
         <thead>
             <tr>
-                <th>ID</th>
+                <th class="sortable" data-column="id" data-order="desc">ID</th>
                 <th>商品画像</th>
-                <th>商品名</th>
-                <th>価格</th>
-                <th>在庫数</th>
-                <th>メーカー名</th>
-                <th> <a href="{{ route('products.create') }}" class="btn btn-primary mb-3 new-registration-button">新規登録</a>  
+                <th class="sortable" data-column="product_name" data-order="asc">商品名</th>
+                <th class="sortable" data-column="price" data-order="asc">価格</th>
+                <th class="sortable" data-column="stock" data-order="asc">在庫数</th>
+                <th class="sortable" data-column="company_id" data-order="asc">メーカー名</th>
+                <th> 
+                    <a href="{{ route('products.create') }}" class="btn btn-primary mb-3 new-registration-button">新規登録</a>  
                 </th>
                 <th></th>
             </tr>
@@ -73,13 +72,17 @@
         </tbody>
     </table>
 
-    <!-- ページネーション -->
-    <div class="pagination">
+ <!-- ページネーション（JSで更新） -->
+ <div id="pagination" class="pagination">
+        {{-- 最初の描画はサーバー側のlinksを表示しておく（オプション） --}}
         {{ $products->links('vendor.pagination.default') }}
     </div>
 </div>
 
-    <!-- jQueryの読み込み -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+{{-- jQuery をここで先に読み込む（必ず Vite に含める search.js より先） --}}
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+{{-- Viteでバンドルしたスクリプトをここに読み込む（delete.js と search.js） --}}
+@vite(['resources/js/delete.js', 'resources/js/search.js'])
 
 @endsection

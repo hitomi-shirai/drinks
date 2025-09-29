@@ -221,18 +221,49 @@ class ProductController extends Controller
             $query->where('price', '<=', $request->price_max);
         }
 
+        
         // 在庫範囲
         if ($request->filled('stock_min')) {
             $query->where('stock', '>=', $request->stock_min);
         }
         if ($request->filled('stock_max')) {
             $query->where('stock', '<=', $request->stock_max);
-        }        
-    
-        // 会社情報も一緒に取得
-        $products = $query->get();
-    
-        // JSONで返す
-        return response()->json($products);
-    }        
+        } 
+        
+        // ソート（安全のためホワイトリストで確認）
+        $allowed = ['id', 'product_name', 'price', 'stock', 'company_id'];
+        $sortColumn = $request->input('sort_column', 'id');
+        $sortOrder = $request->input('sort_order', 'desc') === 'asc' ? 'asc' : 'desc';
+
+        if (in_array($sortColumn, $allowed)) {
+            $query->orderBy($sortColumn, $sortOrder);
+        } else {
+            $query->orderBy('id', 'desc');
+        }
+        
+        // ページネーション　５件
+        $products = $query->paginate(5);
+
+
+        // products->items() はモデル配列（会社情報含む）なので、配列に変換して返すと安全
+        $items = array_map(function($p) {
+            return [
+                'id' => $p->id,
+                'product_name' => $p->product_name,
+                'price' => $p->price,
+                'stock' => $p->stock,
+                'img_path' => $p->img_path,
+                'company' => $p->company ? ['company_name' => $p->company->company_name] : null,
+            ];
+        }, $products->items());
+
+        return response()->json([
+            'data' => $items, // 5件分のデータ
+            'pagination' => [
+            'current_page' => $products->currentPage(),
+            'last_page' => $products->lastPage(),
+            'total' => $products->total(),
+            ]
+        ]);    
+    }
 }
