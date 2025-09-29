@@ -191,13 +191,26 @@ class ProductController extends Controller
     try{
         $product -> delete();
         DB::commit();
+
+    // AjaxリクエストならJSONを返す
+    if (request()->ajax()) {
+        return response()->json(['success' => true]);
+    }        
+
         return redirect()->route('products.index')->with('success', '商品を削除しました');        
     }catch (\Exception $e) {
         DB::rollBack();
+
+        if (request()->ajax()) {
+            return response()->json(['success' => false, 'error' => $e->getMessage()], 500);
+        }        
         return back()->with('error', '商品削除に失敗しました: ' . $e->getMessage());
     }
-        return redirect() -> route('products.index');
+    
     }
+
+
+
 
     public function searchAjax(Request $request)
     {

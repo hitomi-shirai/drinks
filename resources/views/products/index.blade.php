@@ -51,7 +51,7 @@
         <!-- 非同期で書き換える場所  --->
         <tbody id = "product-list">
         @foreach ($products as $product)
-            <tr>
+            <tr id="product-row-{{ $product->id }}">
                 <td>{{ $product -> id }}</td>
                 <td><img src="{{ asset($product->img_path) }}" alt="商品画像" width="100">
                 </td>
@@ -61,11 +61,7 @@
                 <td>{{ $product -> company -> company_name }}</td>
                 <td class="actions">
                     <a href = "{{ route('products.show', $product -> id) }}" class="btn btn-primary btn-detail">詳細</a>
-                    <form action = "{{ route('products.destroy', $product -> id) }}" method="POST" class="delete-form" >
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger btn-delete">削除</button>
-                    </form>
+                    <button type="submit" class="btn btn-danger btn-delete" data-id="{{ $product->id }}">削除</button>
                 </td>  
             </tr>
         @endforeach
