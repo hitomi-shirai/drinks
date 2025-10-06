@@ -20,7 +20,7 @@ return new class extends Migration
             ->references('id')      //参照先のテーブルのカラム
             ->on('products');      //参照先のテーブル名
             $table->timestamps();
-        });  
+        });     
     }
 
     /**
